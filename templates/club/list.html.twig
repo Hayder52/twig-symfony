@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{# {% set nbMax = 0 %} #}
+{#{% set S = "" %}#}
+{##}
+{#{% for form in formation %}#}
+{#{% set nbMax = max(form.nb_participants, nbMax) %} #}
+{# {% if form.nb_participants > nbmax %} #}
+{# {% set nbmax = form.nb_participants %} #}
+{# {% set S = form.Titre %}#}
+{# {% endif %} #}
+{# {% endfor %} #}
+{# {{ S }} #}
+    <table border = 2>
+    <tr>
+    <th>ref</th>
+    <th>Titre</th>
+    <th>Description</th>
+    <th>date_debut</th>
+    <th>date_fin</th>
+    <th>nb_participants</th>
+    </tr>
+   {# {% if formation is empty %}
+    <h1>le tableau es vide </h1>
+    {% else %} #} 
+
+    {% for f in formation %}
+    <tr>
+   {# {% if 'theorique' in f.Description %} #} 
+   {# {% if f.nb_participants == nbMax %} #}
+    <td>{{ f.ref }}</td>
+    <td>{{ f.Titre | upper}}</td>
+    <td>{{ f.Description }}</td>
+    <td>{{ f.date_debut }}</td>
+    <td>{{ f.date_fin }}</td>
+    <td>{{ f.nb_participants }}</td>
+    <td>
+    {% if f.nb_participants == 0 %}
+    <form action = "{{ path('Detail',{'id':f.ref}) }}">
+    <button>Participer</button>
+    </form>
+    {% endif %}
+    </td>
+     {# {% endif %} #} 
+    </tr>
+    {#{% else %}#}
+    {#<h1>le tableau est vide </h1>#}
+    {% endfor %}
+      {# {% endif %} #} 
+    </table>
+    {% set nbTot = 0 %}
+    {% for f in formation %}
+    {% set nbTot = nbTot + f.nb_participants %}
+    {% endfor %}
+    <h1>le nombre totale est : {{ nbTot }}</h1>
+   <h1>le nombre de formation est :</h1> {{ formation | length}}
+</body>
+</html>
